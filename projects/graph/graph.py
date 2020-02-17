@@ -104,9 +104,6 @@ class Graph:
 
         This should be done using recursion.
         """
-        # stack = Stack()
-        # visited = set()
-        # stack.push(starting_vertex)
         if starting_vertex is None:
             return
         if starting_vertex not in visited:
@@ -114,19 +111,9 @@ class Graph:
             print(starting_vertex)
         else:
             return
-
         edges = self.get_neighbors(starting_vertex)
         for edge in edges:
             self.dft_recursive(edge, visited)
-        # while stack.size() > 0:
-        #     current_node = stack.pop()
-        #     if current_node not in visited:
-        #         print(current_node)
-        #         visited.add(current_node)
-        #         edges = self.get_neighbors(current_node)
-        #         for edge in edges:
-        #             stack.push(edge)
-        # pass  # TODO
 
     def bfs(self, starting_vertex, destination_vertex):
         """
@@ -134,11 +121,23 @@ class Graph:
         starting_vertex to destination_vertex in
         breath-first order.
         """
-        # queue = Queue()
-        # visited = set()
-        # queue.enqueue(starting_vertex)
-        # while queue.size() > 0:
-        #     current_node = queue.dequeue()
+        queue = Queue()
+        visited = set()
+        queue.enqueue([starting_vertex])
+        while queue.size() > 0:
+            current_path = queue.dequeue()
+            current_node = current_path[-1]
+            if current_node == destination_vertex:
+                return current_path
+            if current_node not in visited:
+                visited.add(current_node)
+                edges = self.get_neighbors(current_node)
+                for edge in edges:
+                    queue.enqueue(current_path + [edge])
+                
+                
+            
+
         #     if current_node == destination_vertex:
         #         return current_node
         #     if current_node not in visited:
@@ -154,6 +153,21 @@ class Graph:
         starting_vertex to destination_vertex in
         depth-first order.
         """
+
+        stack = Stack()
+        visited = set()
+        stack.push([starting_vertex])
+        while stack.size() > 0:
+            current_path = stack.pop()
+            current_node = current_path[-1]
+            if current_node == destination_vertex:
+                return current_path
+            if current_node not in visited:
+                visited.add(current_node)
+                edges = self.get_neighbors(current_node)
+                for edge in edges:
+                    stack.push(current_path + [edge])
+                
 
         # make a queue
 
@@ -245,15 +259,15 @@ if __name__ == '__main__':
     Valid BFS path:
         [1, 2, 4, 6]
     '''
-    # print("BFS")
-    # print(graph.bfs(1, 6))
+    print("BFS")
+    print(graph.bfs(1, 6))
 
     '''
     Valid DFS paths:
         [1, 2, 4, 6]
         [1, 2, 4, 7, 6]
     # '''
-    # print ("DFS")
-    # print(graph.dfs(1, 6))
+    print ("DFS")
+    print(graph.dfs(1, 6))
     # print("DFS RECURSIVE")
     # print(graph.dfs_recursive(1, 6))
