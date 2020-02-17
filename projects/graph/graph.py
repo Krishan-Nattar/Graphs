@@ -167,28 +167,8 @@ class Graph:
                 edges = self.get_neighbors(current_node)
                 for edge in edges:
                     stack.push(current_path + [edge])
-                
 
-        # make a queue
-
-        # make a set for visited
-
-        # enqueue A PATH TO starting vertex
-
-        # while the queue isn't empty:
-        # dequeue the next path
-
-        # check if it's the target, aka the destation vertex
-
-        # if so, return the path
-
-        # if not, mark as visited
-        # get the neighbors
-        # copy the path, add the neighbor to the copy
-        # for each one, add a PATH TO IT to our queue
-        pass  # TODO
-
-    def dfs_recursive(self, starting_vertex):
+    def dfs_recursive(self, starting_vertex, destination_vertex, visited = set(), path = []):
         """
         Return a list containing a path from
         starting_vertex to destination_vertex in
@@ -196,7 +176,20 @@ class Graph:
 
         This should be done using recursion.
         """
-        pass  # TODO
+        if starting_vertex is not None:
+            visited.add(starting_vertex)
+            path.append(starting_vertex)
+            if starting_vertex == destination_vertex:
+                return path
+            edges = self.get_neighbors(starting_vertex)
+            for edge in edges:
+                if edge not in visited:
+                    # print(edge)
+                    possible_path = self.dfs_recursive(edge, destination_vertex, visited, path)
+                    if possible_path is not None:
+                        return possible_path
+        return None
+        
 
 if __name__ == '__main__':
     graph = Graph()  # Instantiate your graph
@@ -269,5 +262,5 @@ if __name__ == '__main__':
     # '''
     print ("DFS")
     print(graph.dfs(1, 6))
-    # print("DFS RECURSIVE")
-    # print(graph.dfs_recursive(1, 6))
+    print("DFS RECURSIVE")
+    print(graph.dfs_recursive(1, 6))
