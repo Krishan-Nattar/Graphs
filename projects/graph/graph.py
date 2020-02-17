@@ -134,18 +134,6 @@ class Graph:
                 edges = self.get_neighbors(current_node)
                 for edge in edges:
                     queue.enqueue(current_path + [edge])
-                
-                
-            
-
-        #     if current_node == destination_vertex:
-        #         return current_node
-        #     if current_node not in visited:
-        #         print(current_node)
-        #         visited.add(current_node)
-        #         edges = self.get_neighbors(current_node)
-        #         for edge in edges:
-        #             queue.enqueue(edge)
 
     def dfs(self, starting_vertex, destination_vertex):
         """
@@ -184,7 +172,6 @@ class Graph:
             edges = self.get_neighbors(starting_vertex)
             for edge in edges:
                 if edge not in visited:
-                    # print(edge)
                     possible_path = self.dfs_recursive(edge, destination_vertex, visited, path)
                     if possible_path is not None:
                         return possible_path
