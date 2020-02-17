@@ -24,6 +24,7 @@ f = open('words.txt', 'r')
 words = f.read().split("\n")
 f.close()
 
+# Popuplate word_set with all the words from the text file
 word_set = set()
 for word in words:
     word_set.add(word.lower())
@@ -31,13 +32,22 @@ for word in words:
 
 def get_neighbors(word):
     neighbors = []
+    # Split the word into individual characters in a list
     string_word = list(word)
+
     for i in range(len(string_word)):
+
         # For every lowercase letter
+        # Iterate through every possible combination of changing individual letters in the string
         for letter in list("abcdefghijklmnopqrstuvwxyz"):
             temp_word = list(string_word)
             temp_word[i] = letter
+
+            # Make the string list back into one string
             w = "".join(temp_word)
+
+            # Check to make sure the word we found is not the original word we sent in
+            # Make sure the word exists in the dictionary
             if w != word and w in word_set:
                 neighbors.append(w)
     return neighbors
