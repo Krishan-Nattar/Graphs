@@ -64,12 +64,18 @@ def earliest_ancestor(ancestors, starting_node):
                         elif answer[1] == len(current_path) and answer[0] > child:
                             answer[0] = child
                             answer[1] = len(current_path)
+                    
+                    # Add the node we are looking at to our visited set if we haven't worked with it yet
                     if current_node not in visited_2:
                         visited_2.add(current_node)
+
+                        # If the current node has connections, we toss those on the stack and continue the loop
                         if current_node in ancestor_dictionary:
                             edges = ancestor_dictionary[current_node]
                             for edge in edges:
                                 stack_2.push(current_path + [edge])
+                                
+                # Once we've checked everything in the stack, break the loop and continue with the outer reverse DFS functionality
                 break
 
         # Check if there are parents to the current child node
