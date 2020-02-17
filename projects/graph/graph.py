@@ -168,6 +168,7 @@ class Graph:
             visited.add(starting_vertex)
             path.append(starting_vertex)
             if starting_vertex == destination_vertex:
+                # Base Case
                 return path
             edges = self.get_neighbors(starting_vertex)
             for edge in edges:
