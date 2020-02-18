@@ -164,20 +164,22 @@ class Graph:
 
         This should be done using recursion.
         """
-        if starting_vertex is not None:
-            visited.add(starting_vertex)
-            path.append(starting_vertex)
-            if starting_vertex == destination_vertex:
-                # Base Case
-                return path
-            edges = self.get_neighbors(starting_vertex)
-            for edge in edges:
-                if edge not in visited:
-                    possible_path = self.dfs_recursive(edge, destination_vertex, visited, path)
-                    if possible_path is not None:
-                        return possible_path
+        # if starting_vertex is not None:
+        visited.add(starting_vertex)
+        # path.append(starting_vertex)
+        path = path + [starting_vertex]
+        if starting_vertex == destination_vertex:
+            # Base Case
+            return path
+        edges = self.get_neighbors(starting_vertex)
+        for edge in edges:
+            if edge not in visited:
+                possible_path = self.dfs_recursive(edge, destination_vertex, visited, path)
+                if possible_path:
+                    return possible_path
+
         return None
-        
+
 
 if __name__ == '__main__':
     graph = Graph()  # Instantiate your graph
